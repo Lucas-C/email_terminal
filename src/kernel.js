@@ -1,5 +1,5 @@
 // Global scope variables
-const defaultServerAddress = "localhost";
+const defaultServerAddress = "terranova.ceph";
 let serverDatabase = {};
 let userDatabase = {};
 let userList = [];
@@ -336,9 +336,7 @@ system = {
                 resolve( [
                     "You can read the help of a specific command by entering as follows: 'help commandName'",
                     "List of useful commands:",
-                    `<div class="ls-files">${ cmdNames.join( "<br>" ) }</div>`,
-                    "You can navigate in the commands usage history using the UP & DOWN arrow keys.",
-                    "The TAB key will provide command auto-completion."
+                    `<div class="ls-files">${ cmdNames.join( "<br>" ) }</div>`
                 ] );
             } else if ( args[ 0 ] === "clear" ) {
                 resolve( [ "Usage:", "> clear", "The clear command will wipe the content of the terminal, but it will not affect the history." ] );

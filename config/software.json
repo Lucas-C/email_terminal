@@ -1,38 +1,49 @@
 {
-    "demo.exe": {
-        "help": "Demonstrate some rendering features",
-        "clear": true,
+    "staff": {
+        "help": "The staff command will list the most important members of the station staff.",
         "message": [
-            "<p class=glow style='font-size: 3em'>⚠ ACHTUNG ⚠</p>",
-            "<p class=desync>SHADY TROUBLING MESSAGE</p>",
-            "<img src=config/network/11.152.9.6/tech.jpg style='width: 10rem' class=glitch>",
-            "<p class=shimmer>Zombie ipsum reversus ab viral inferno, nam rick grimes malum cerebro. De carne lumbering animata corpora quaeritis. Summus brains sit​​, morbo vel maleficia?</p>",
-            "<p class=hack-reveal data-alphabet=uppercase data-iterations-before-reveal=0 data-preserve-spaces=true>All your base are belong to us</p>",
-            "<img src=hacker.jpg class=particle data-particules=2000>"
+            "Personnel référent :",
+            "* <b>Administratrice</b> : Y. Nagata",
+            "* <b>Marshal</b> : K. O'Neil",
+            "* <b>Médecin</b> : M. Aberdeen",
+            "* <b>Lead docker</b> : E. Frost",
+            "* <b>Lead worker</b> : B. Bettany"
         ]
     },
-    "cdata.exe": {
-        "protection": ["admin"],
-        "delayed": 2000,
+    "port": {
+        "help": "The port command will list the spaceships onboard the station.",
         "message": [
-            "Corrupting data.",
-            "Corrupting data..",
-            "Corrupting data...",
-            "0% complete",
-            "11% complete",
-            "47% complete",
-            "98% complete",
-            "System successfully corrupted!"
+            "Vaisseaux à quai au niveau 9 :",
+            "* <b>Eridanos</b> : navette-cargo de classe III/B9",
+            "* <b>Rocinante </b> : corvette Tachi MCRN ECF 270",
+            "* <b>Serenity</b> : transport R6A core 03-K64 Firefly",
+            "* <b>USG Ishimura</b> : cargo de classe PE CEC Aegis-VII",
+            "* <b>Valkyrie</b> : navette orbitale SSTO-TAV-37Bebop"
         ]
     },
-    "target.exe": {
-        "location": ["127.0.0.1", "localhost"],
-        "message": [
-            "This <abbr title=\"tHeY aRe NoT hUmAn\"><s>person</s></abbr> is your target:",
-            "<img src=\"https://thispersondoesnotexist.com/image\" title=\"tHeY aRe NoT hUmAn\" style=\"width: 10rem; max-width: 100%;\">"
-        ]
+    "audit": {
+        "help": "The audit command will perform a full audit of the station communications system.",
+        "protection": ["auditer"]
     },
-    "artifact": {},
-    "decrypt": {},
-    "identify": {}
+    "map": {
+        "help": "The map command will display a map of the station and the current position of the androids."
+    },
+    "doctor": {
+        "help": "The doctor command will allow you to book an appointment with the station doctor."
+    },
+    "cat":      { "secretCommand": true },
+    "hostname": { "secretCommand": true },
+    "man":      { "secretCommand": true },
+    "ps":       { "secretCommand": true },
+    "pwd":      { "secretCommand": true },
+    "shutdown": { "secretCommand": true },
+    "sudo":     { "secretCommand": true },
+    "touch":    { "secretCommand": true },
+    "echo":   { "secretCommand": true },
+    "exit":   { "secretCommand": true },
+    "ping":   { "secretCommand": true },
+    "whoami": { "secretCommand": true },
+    "logout": null,
+    "ssh": null,
+    "telnet": null
 }

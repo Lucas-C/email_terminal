@@ -1,0 +1,14 @@
+[
+    {
+        "from": "D4rY1",
+        "to": ["user", "auditer"],
+        "title": "Ceci n'est pas un spam",
+        "body": "Saurez-vous me déchiffrer ? <p>rot13:Nunu, oenib ! Fnvf-gh dh'vy rkvfgr qrf pbzznaqrf pnpuérf qnaf yr grezvany ? BP7 ar inhg cnf Yvahk, rg wr a'nv cnf rapber eéhffv à êger ebbg fhe pr freirhe, znvf w'l nv gbhg qr zêzr pnpué dhrydhrf fhecevfrf...</p>"
+    },
+    {
+        "from": "?",
+        "to": ["auditer"],
+        "title": "Tu me manques Sanj",
+        "body": "<p class=\"sanj desync\">Où es-tu ?</p><p class=\"sanj desync\">J'ai besoin de toi...</p>"
+    }
+]

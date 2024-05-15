@@ -9,62 +9,127 @@
  */
 /* eslint-disable no-inner-declarations, no-nested-ternary, no-sequences, no-unused-vars */
 
-function decrypt( args ) { // The same function can be used to encode text
-    if ( args.length === 0 ) {
-        return "<p>Some encrypted text must be provided: <code>decrypt 53CR3T T3XT</code></p>";
+const appointments = [
+    "Harp Waschenski",
+    "Candy Davies",
+];
+function doctor() {
+    if (appointments.length >= 3) {
+        return ["Le docteur Aberdeen vous recevra bientôt. Rendez-vous à son cabinet au niveau 5.", "Prochaines consultations:", ...appointments.map(name => `* ${name}`)];
     }
-    const textInClear = rot13( args.join( " " ) );
-    return `<p class="hack-reveal">${ textInClear }</p>`;
-}
-function rot13( s ) { // cf. https://en.wikipedia.org/wiki/ROT13
-    return s.replace( /[a-zA-Z]/g, ( c ) => String.fromCharCode( ( c <= "Z" ? 90 : 122 ) >= ( c = c.charCodeAt( 0 ) + 13 ) ? c : c - 26 ) );
-}
-
-function identify() {
-    const introMsg = [ "What is this?", `<img src="https://thisartworkdoesnotexist.com/?${ performance.now() }" style="width: 10rem; max-width: 100%;">` ];
+    const introMsg = "Indiquez votre nom pour prendre rendez-vous avec le docteur Aberdeen (N pour annuler) :";
     return { message: introMsg, onInput( answer ) {
-        return `Wrong! This is not "${ answer }"`;
+        answer = answer.trim();
+        if (!answer || answer === "N") {
+            return "Prise de rendez-vous annulée."
+        }
+        appointments.push(answer);
+        return ["Rendez-vous pris. Prochaines consultations:", ...appointments.map(name => `* ${name}`)];
     } };
 }
 
-function artifact( args ) {
-    if ( args.length === 0 ) {
-        return [ "<p>An ID must be provided: <code>artifact $id</code></p>", `You currently have access to the following artifacts: ${ Object.keys( DWEETS ).join( " " ) }` ];
+// All Arnie & Miranda androids:
+const ALL_ANDROIDS = Array(19).fill().map((_, n) => `Arnie${n + 1}`);
+Array(7).fill().map((_, n) => ALL_ANDROIDS.push(`Mir${n + 1}`));
+function map() {
+    // Pick two random elements...
+    const i1 = Math.floor(Math.random() * ALL_ANDROIDS.length);
+    const i2 = Math.floor(Math.random() * ALL_ANDROIDS.length);
+    // And swap them:
+    [ALL_ANDROIDS[i1], ALL_ANDROIDS[i2]] = [ALL_ANDROIDS[i2], ALL_ANDROIDS[i1]];
+    // Androids generator:
+    const allAndroids = [...ALL_ANDROIDS];
+    const androids = (count, width) => {
+        const andros = [];
+        for (let i = 0; i < count; i++) {
+            andros.push(allAndroids.pop());
+        }
+        const androStr = andros.join(", ");
+        return androStr + " ".repeat((width || 39) - androStr.length);
     }
-    const artifactId = args[ 0 ];
-    const artifactDweet = DWEETS[ artifactId ];
-    if ( !artifactDweet ) {
-        return `You do not have access to the artifact with ID ${ artifactId }`;
-    }
-    return artifactDweet();
+    return `<pre>
+┌──────────────────────────────────────────────────────┐
+│  Niveau 1 : Communications                           │
+│  Androïdes : ${androids(1)} │
+├──────────────────────────────────────────────────────┤
+│  Niveau 2 : Bureaux de G.E.C.                        │
+│  Androïdes : ${androids(3)} │
+├──────────────────────────────────────────────────────┤
+│  Niveau 3 : Bureaux de Revolve Industries            │
+│  Androïdes : Cory1, ${androids(3, 32)} │
+├──────────────────────────────────────────────────────┤
+│  Niveau 4 : Bureaux d'entreprises                    │
+│  Androïdes : ${androids(3)} │
+├──────────────────────────────────────────────────────┤
+│  Niveau 5 : Administration                           │
+│  Androïdes : Cory2, Cory3, ${androids(3, 25)} │
+├──────────────────────────────────────────────────────┤
+│  Niveau 6 : Cabines A                                │
+│  Androïdes : ${androids(1)} │
+├──────────────────────────────────────────────────────┤
+│  Niveau 7 : Cabines B                                │
+│  Androïdes :                                         │
+├──────────────────────────────────────────────────────┤
+│  Niveau 8 : Les Arches                               │
+│  Androïdes : ${androids(3)} │
+├──────────────────────────────────────────────────────┤
+│  Niveau 9 : Port spatial                             │
+│  Androïdes : ${androids(5)} │
+├──────────────────────────────────────────────────────┤
+│  Niveau 10 : Hangar & salle des machines             │
+│  Androïdes : ${androids(4)} │
+└──────────────────────────────────────────────────────┘
+    </pre>`;
 }
 
+// Note : le message de l'email a été généré avec : rot13("Ahah, bravo ! Sais-tu qu'il existe des commandes cachées dans le terminal ? OC7 ne vaut pas Linux, et je n'ai pas encore réussi à être root sur ce serveur, mais j'y ai tout de même caché quelques surprises...")
+function darylSecret() {
+    return `<p class="hack-reveal">Ahah, bien joué ! Tu as l'air futé :) Si tu veux faire ma connaissance, viens me rendre visite au niveau 3 !</p>`;
+}
+// Le 2e message de Daryl apparaît dès que l'on tape une commande Linux standard :
+window["cat"] = darylSecret;
+// window["cd"] = darylSecret; // too common
+// window["ls"] = darylSecret; // too common
+window["man"] = darylSecret;
+window["ps"] = darylSecret;
+window["pwd"] = darylSecret; // too common
+window["shutdown"] = darylSecret;
+window["sudo"] = darylSecret;
+window["touch"] = darylSecret;
+window["hostname"] = darylSecret;
+window["exit"] = darylSecret;
+window["ping"] = darylSecret;
+window["whoami"] = darylSecret;
+
+function audit() {
+    setTimeout(auditFinished, 4_500);
+    return [`<p class="shimmer">Démarrage de l'audit des télécommunications...</p>`, DWEETS[ 888 ](/*delay=*/0, /*style=*/'height: 100px')];
+}
+
+function auditFinished() {
+    setHeader(); // clear terminal
+    output({delayed: 500, text: [
+        'Audit terminé.',
+        '* communications internes Terra Nova : <b>✓</b><br><ul><li>réseau CommLinks TX100 : <b>✓</b></li><li>interconnexion aux androïdes OC7/bgp3 : 22/22 <b>✓</b></li><li>base de données heuristique Moon//go : <b>✓</b></li></ul>',
+        '* communications avec Cepheus : <b>✓</b><br><ul><li>qualité du signal : <b>✓</b></li><li>latence atmosphérique /ping : <b>✓</b></li></ul>',
+        DWEETS[ 5600 ](/*delay=*/1600, /*style=*/'height: 120px'),
+        '* communications spatiales : <b style="color: red">X</b><br><ul><li>antenne relais A1 : <b>✓</b></li><li>antenne relais A2 : <b style="color: red">X</b></li><li>antenne relais A3 : <b>✓</b></li></ul>',
+        DWEETS[ 10534 ](/*delay=*/2800, /*style=*/'width: 150px; height: 100px; padding: 10px 30px'),
+        '<p class="sanj desync">Sanj... tu es là ?</p>',
+        '<p class="sanj desync">Réponds-moi...</p>'
+    ]});
+}
+setInterval(() => $(".sanj").remove(), 10_000);
+
 const DWEETS = {
-    888: () => dweet( ( t, x ) => { // FROM: https://www.dwitter.net/d/888
+    888: ( delay, style ) => dweet( ( t, x ) => { // FROM: https://www.dwitter.net/d/888
         for ( let i = 0; i < 300; i++ ) {
             for ( let j = 0; j < 6; j++ ) {
                 x.fillRect( 100 + 66 * C( i ) * S( T( t / 1.1 ) + j / i ), 100 + 66 * S( i ), 2, 2 );
             }
         }
-    } ),
-    1829: () => dweet( ( t, x ) => { // FROM: https://www.dwitter.net/d/1829
-        for ( let i = 16; i--; ) {
-            x.ellipse( 100 + 60 * S( t + i * 0.1 ), 100 + 10 * C( t + i * 0.1 ), 32 * S( -i * 0.5 ) + 32, 10 * S( i * 0.1 ) + 1, 1.6 + 0.5 * S( t * 0.5 ), 9.5, 0, true );
-            //         x,                           y,                           radiusX,                 radiusY,               rotation,                 startAngle, endAngle, counterclockwise
-        }
-        x.stroke();
-    } ),
-    1231: () => dweet( ( t, x ) => { // FROM: https://www.dwitter.net/d/1231
-        for ( let i = 9; i < 2e3; i += 2 ) {
-            const s = 3 / ( 9.1 - ( t + i / 99 ) % 9 );
-            x.beginPath();
-            const j = i * 7 + S( i * 4 + t + S( t ) );
-            x.lineWidth = s * s;
-            x.arc( 100, 100, s * 49, j, j + 0.6 );
-            x.stroke();
-        }
-    } ),
-    10534: () => dweet( ( t, x ) => { // FROM: https://www.dwitter.net/d/10534
+    }, 0, 0, delay, style ),
+    10534: ( delay, style ) => dweet( ( t, x ) => { // FROM: https://www.dwitter.net/d/10534
         t += 160;
         let n;
         for ( let i = 2e3; i--; ) {
@@ -73,86 +138,22 @@ const DWEETS = {
             const s = ( 3 - C( n ) * 3 ) / 3;
             x.fillRect( 100 + m * S( n = t / 9 + i * i ) * C( !p * i / t ), 100 + m * C( n + p * 2 ), s, s );
         }
-    } ),
-    5600: () => dweet( ( t, x, c ) => { // FROM: https://www.dwitter.net/d/5600
+    }, 0, 0, delay, style),
+    5600: ( delay, style ) => dweet( ( t, x, c ) => { // FROM: https://www.dwitter.net/d/5600
         const h = c.width;
         for ( let i = h; i--; ) {
             if ( C( t - i ) > 0 ) {
                 x.fillText( ".⬤"[ "榁翻꺿듻ퟝ믭󫥤큰삗⢠挎ᩐ肦䰠椉䠊ᑒꊐࢀင".charCodeAt( i / 16 ) >> i % 16 & 1 ], 192 + ( ( i * h - i * i ) ** 0.5 ) * S( t - i ) / 2, i / 2 + 9 );
             }
         }
-    }, 432, 230 ),
-    629: () => dweet( ( t, x ) => { // FROM: https://www.dwitter.net/d/629
-        const a = 629;
-        for ( let i = a; i--; ) {
-            const s = -15 / ( ( i + t * 60 ) % a );
-            const X = a * S( i * 0.31 ) * s + 100;
-            const Y = a * C( i * 0.3 ) * s + 100;
-            x.fillRect( X, Y, s * 9, s * 9 );
-            x.lineTo( X, Y );
-        }
-        x.stroke();
-    } ),
-    3822: () => dweet( ( t, x ) => { // FROM: https://www.dwitter.net/d/3822
-        for ( let i = 0; i < 999; i++ ) {
-            x.fillStyle = R( i % 300, i % 255, i % 320 );
-            x.fillRect( 100 + 50 * S( i + t ), 100 + 50 * S( i ) + T( t - i ), 3, 3 );
-        }
-    } ),
-    6494: () => dweet( ( t, x ) => { // FROM: https://www.dwitter.net/d/6494
-        for ( let i = 64; i--; ) {
-            x.setTransform( 1, 0, 0, 1, i % 8 * 100, ( i >> 3 ) * 60 );
-            for ( let j = 99; j--; ) {
-                x.fillRect( 40 + C( t + j / 4 ) * 20, 20 + S( j * i ) * 20, 2, 2 );
-            }
-        }
-    }, 800, 402 ),
-    4342: () => dweet( ( t, x ) => { // FROM: https://www.dwitter.net/d/4342
-        const v = t + 400;
-        for ( let q = 255; q--; ) {
-            x.fillStyle = R( q, q, q );
-            x.beginPath();
-            x.arc( 210 + C( v - q ) * ( v + q ) / 4, 110 + S( v - q ) * ( v - q ) / 4, 10, 0, 6.283, !1 );
-            x.fill();
-        }
-    }, 420, 220 ),
-    7495: () => dweet( ( t, x, c ) => { // FROM: https://www.dwitter.net/d/7495
-        for ( let i = 16; i--; x.stroke() & x.drawImage( c, x.globalAlpha = 0.1, i ) ) {
-            t += ( 7 - i ) % 2 / 0.64;
-            const Z = ( t < 6 ) + 1 + C( t );
-            x.lineTo( 200 + S( t ) * 100 / Z, 50 + ( ( i % 4 / 2 << 6 ) - 25 ) / Z );
-        }
-    }, 400 ),
-    13326: () => dweet( ( t, x ) => { // FROM: https://www.dwitter.net/d/13326
-        for ( let i = 0; i < 2e3; ) {
-            const F = 260 * ( t + 9 ) / i + S( i * i );
-            const K = i++ ? S( i ) * 3 : 2e3;
-            x.fillRect( i ? 400 + i * S( F ) : 0, i ? 150 + 0.1 * ( 2 * i * C( F ) + 2e4 / i ) : 0, K, K );
-            x.fillStyle = R( 99 * i, 2 * i, i, i ? 1 : 0.4 );
-        }
-    }, 800, 300 ),
-    7979: () => dweet( ( t, x ) => { // FROM: https://www.dwitter.net/d/7979
-        for ( let i = -9; ++i < 9; ) {
-            let j;
-            function R( a ) {
-                const z = j - t % 1;
-                x.lineTo( 150 + a * 99 / z, z + 90 + ( 99 + T( j + t & a + 9 | 8 ) + a * a ) / z );
-            }
-            for ( j = 12; x.beginPath( x.stroke() ), R( i ), --j; R( i + 1 ) ) {
-                R( i );
-            }
-        }
-    }, 300 ),
-    20584: () => dweet( ( t, x ) => { // FROM: https://www.dwitter.net/d/20584
-        const R = 48;
-        for ( let i = 8064; i--; ) {
-            const S = i % 97 - R;
-            const T = i / 97 - R;
-            const r = ( S * S + T * T ) ** 0.5;
-            function z( n ) {
-                return n-- && C( T / 2 + S * T / R + t * 9 ) * C( T / 4 - z( n ) * 2 ) - r / 6;
-            }
-            x.fillRect( S + 96, T + 54, C( Math.atan2( S, T, r ) * 9 ) * 20 - r & 44 && r > 36 ? r < 42 ? T / R : S / R : 1, r > 36 ? r < R : z( 3 ) / 5 );
-        }
-    }, 198, 100 )
+    }, 432, 230, delay, style ),
 };
+
+function setCoords() {
+    const coordsElem = $("#coords");
+    const time = (new Date()).getTime();
+    // Inspi: http://simbad.u-strasbg.fr/simbad/sim-id?Ident=PSR+J1852-2610&NbIdent=1&Radius=2&Radius.unit=arcmin
+    //        https://fr.wikipedia.org/wiki/Syst%C3%A8me_de_r%C3%A9f%C3%A9rence_c%C3%A9leste_international
+    coordsElem.text(`ICRS 18 52 59.${ Math.floor( ( time % 1_000_000 ) / 1000 ) } -26 10 12.70`);
+}
+setInterval(setCoords, 5_000);
