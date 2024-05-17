@@ -3,9 +3,10 @@
     "year": "2299",
     "serverName": "CommLink terminal",
     "iconName": "ParadisPerdu-TerraNova.jpg",
+    "iconClass": "glitch",
     "iconSize": 150,
     "terminalID": "OC7",
-    "headerExtraHTML": "<p>Station coordinates: <span id=coords>ICRS 18 52 59.467 -26 10 12.70</span></p><p>Population: ██████▒▒▒ 288</p><p>Oxygen: █████████▒ 2437m<sup>3</sup></p>",
+    "headerExtraHTML": "<p>Station coordinates: <span id=coords>ICRS 18 52 59.467 -26 10 12.70</span></p><p>Population: █▒▒▒▒▒▒▒▒ ⚠️</p><p>Oxygen: ███▒▒▒▒▒▒▒ <span id=oxygen style=color:red>728</span> m<sup>3</sup></p>",
     "defaultUser": {
         "userId": "user",
         "password": "",

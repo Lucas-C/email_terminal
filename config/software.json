@@ -13,12 +13,8 @@
     "port": {
         "help": "The port command will list the spaceships onboard the station.",
         "message": [
-            "Vaisseaux à quai au niveau 9 :",
-            "* <b>Eridanos</b> : navette-cargo de classe III/B9",
-            "* <b>Rocinante </b> : corvette Tachi MCRN ECF 270",
-            "* <b>Serenity</b> : transport R6A core 03-K64 Firefly",
-            "* <b>USG Ishimura</b> : cargo de classe PE CEC Aegis-VII",
-            "* <b>Valkyrie</b> : navette orbitale SSTO-TAV-37Bebop"
+            "Aucun vaisseau enregistré à quai au niveau 9.",
+            "Dysfonctionnement probable, veuillez contacter l'équipe technique de la station"
         ]
     },
     "audit": {
@@ -29,20 +25,13 @@
         "help": "The map command will display a map of the station and the current position of the androids."
     },
     "doctor": {
-        "help": "The doctor command will allow you to book an appointment with the station doctor."
+        "help": "The doctor command will allow you to book an appointment with the station doctor.",
+        "message": "La prise de rendez-vous de consultation médicale avec le docteur Aberdeen est désactivée."
     },
-    "cat":      { "secretCommand": true },
-    "hostname": { "secretCommand": true },
-    "man":      { "secretCommand": true },
-    "ps":       { "secretCommand": true },
-    "pwd":      { "secretCommand": true },
-    "shutdown": { "secretCommand": true },
-    "sudo":     { "secretCommand": true },
-    "touch":    { "secretCommand": true },
-    "echo":   { "secretCommand": true },
-    "exit":   { "secretCommand": true },
-    "ping":   { "secretCommand": true },
-    "whoami": { "secretCommand": true },
+    "echo": null,
+    "exit": null,
+    "ping": null,
+    "whoami": null,
     "logout": null,
     "ssh": null,
     "telnet": null

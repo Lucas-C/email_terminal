@@ -9,34 +9,24 @@
  */
 /* eslint-disable no-inner-declarations, no-nested-ternary, no-sequences, no-unused-vars */
 
-const appointments = [
-    "Harp Waschenski",
-    "Candy Davies",
-];
-function doctor() {
-    if (appointments.length >= 3) {
-        return ["Le docteur Aberdeen vous recevra bientôt. Rendez-vous à son cabinet au niveau 5.", "Prochaines consultations:", ...appointments.map(name => `* ${name}`)];
-    }
-    const introMsg = "Indiquez votre nom pour prendre rendez-vous avec le docteur Aberdeen (N pour annuler) :";
-    return { message: introMsg, onInput( answer ) {
-        answer = answer.trim();
-        if (!answer || answer === "N") {
-            return "Prise de rendez-vous annulée."
-        }
-        appointments.push(answer);
-        return ["Rendez-vous pris. Prochaines consultations:", ...appointments.map(name => `* ${name}`)];
-    } };
+function predictiveShuffle(array) {
+  let currentIndex = array.length;
+  // While there remain elements to shuffle...
+  while (currentIndex != 0) {
+    // Pick aremainig elemet...
+    let randomIndex = Math.floor(0.5* currentIndex);
+    currentIndex--;
+    // And swap it with the current element.
+    [array[currentIndex], array[randomIndex]] = [
+      array[randomIndex], array[currentIndex]];
+  }
 }
 
 // All Arnie & Miranda androids:
 const ALL_ANDROIDS = Array(19).fill().map((_, n) => `Arnie${n + 1}`);
 Array(7).fill().map((_, n) => ALL_ANDROIDS.push(`Mir${n + 1}`));
+predictiveShuffle(ALL_ANDROIDS);
 function map() {
-    // Pick two random elements...
-    const i1 = Math.floor(Math.random() * ALL_ANDROIDS.length);
-    const i2 = Math.floor(Math.random() * ALL_ANDROIDS.length);
-    // And swap them:
-    [ALL_ANDROIDS[i1], ALL_ANDROIDS[i2]] = [ALL_ANDROIDS[i2], ALL_ANDROIDS[i1]];
     // Androids generator:
     const allAndroids = [...ALL_ANDROIDS];
     const androids = (count, width) => {
@@ -47,10 +37,11 @@ function map() {
         const androStr = andros.join(", ");
         return androStr + " ".repeat((width || 39) - androStr.length);
     }
-    return `<pre>
+    return `<p style="color: red">Géolocalistion des androïdes inactive. Leur dernière position connue est indiquée.</p>
+<pre>
 ┌──────────────────────────────────────────────────────┐
 │  Niveau 1 : Communications                           │
-│  Androïdes : ${androids(1)} │
+│  Androïdes : Cory3, ${androids(1, 32)} │
 ├──────────────────────────────────────────────────────┤
 │  Niveau 2 : Bureaux de G.E.C.                        │
 │  Androïdes : ${androids(3)} │
@@ -62,7 +53,7 @@ function map() {
 │  Androïdes : ${androids(3)} │
 ├──────────────────────────────────────────────────────┤
 │  Niveau 5 : Administration                           │
-│  Androïdes : Cory2, Cory3, ${androids(3, 25)} │
+│  Androïdes : Cory2, ${androids(3, 32)} │
 ├──────────────────────────────────────────────────────┤
 │  Niveau 6 : Cabines A                                │
 │  Androïdes : ${androids(1)} │
@@ -82,25 +73,6 @@ function map() {
     </pre>`;
 }
 
-// Note : le message de l'email a été généré avec : rot13("Ahah, bravo ! Sais-tu qu'il existe des commandes cachées dans le terminal ? OC7 ne vaut pas Linux, et je n'ai pas encore réussi à être root sur ce serveur, mais j'y ai tout de même caché quelques surprises...")
-function darylSecret() {
-    return `<p class="hack-reveal">Ahah, bien joué ! Tu as l'air futé :) Si tu veux faire ma connaissance, viens me rendre visite au niveau 3 !</p>`;
-}
-// Le 2e message de Daryl apparaît dès que l'on tape une commande Linux standard :
-window["cat"] = darylSecret;
-// window["cd"] = darylSecret; // too common
-// window["ls"] = darylSecret; // too common
-window["man"] = darylSecret;
-window["ps"] = darylSecret;
-window["pwd"] = darylSecret; // too common
-window["shutdown"] = darylSecret;
-window["sudo"] = darylSecret;
-window["touch"] = darylSecret;
-window["hostname"] = darylSecret;
-window["exit"] = darylSecret;
-window["ping"] = darylSecret;
-window["whoami"] = darylSecret;
-
 function audit() {
     setTimeout(auditFinished, 4_500);
     return [`<p class="shimmer">Démarrage de l'audit des télécommunications...</p>`, DWEETS[ 888 ](/*delay=*/0, /*style=*/'height: 100px')];
@@ -110,16 +82,13 @@ function auditFinished() {
     setHeader(); // clear terminal
     output({delayed: 500, text: [
         'Audit terminé.',
-        '* communications internes Terra Nova : <b>✓</b><br><ul><li>réseau CommLinks TX100 : <b>✓</b></li><li>interconnexion aux androïdes OC7/bgp3 : 22/22 <b>✓</b></li><li>base de données heuristique Moon//go : <b>✓</b></li></ul>',
-        '* communications avec Cepheus : <b>✓</b><br><ul><li>qualité du signal : <b>✓</b></li><li>latence atmosphérique /ping : <b>✓</b></li></ul>',
+        '* communications internes Terra Nova : <b style="color: red">X</b><br><ul><li>réseau CommLinks TX100 : <b>✓</b></li><li>interconnexion aux androïdes OC7/bgp3 : 22/22 <b style="color: red">X</b></li><li>base de données heuristique Moon//go : <b>✓</b></li></ul>',
+        '<p class=glow>* communications avec Cepheus : <b style="color: red">X</b></p><ul><li>qualité du signal : <b style="color: red">X</b></li><li>latence atmosphérique /ping : <b style="color: red">X</b></li></ul>',
         DWEETS[ 5600 ](/*delay=*/1600, /*style=*/'height: 120px'),
-        '* communications spatiales : <b style="color: red">X</b><br><ul><li>antenne relais A1 : <b>✓</b></li><li>antenne relais A2 : <b style="color: red">X</b></li><li>antenne relais A3 : <b>✓</b></li></ul>',
+        '<p class=glow>* communications spatiales : <b style="color: red">X</b></p><ul><li>antenne relais A1 : <b style="color: red">X</b></li><li>antenne relais A2 : <b style="color: red">X</b></li><li>antenne relais A3 : <b style="color: red">X</b></li></ul>',
         DWEETS[ 10534 ](/*delay=*/2800, /*style=*/'width: 150px; height: 100px; padding: 10px 30px'),
-        '<p class="sanj desync">Sanj... tu es là ?</p>',
-        '<p class="sanj desync">Réponds-moi...</p>'
     ]});
 }
-setInterval(() => $(".sanj").remove(), 10_000);
 
 const DWEETS = {
     888: ( delay, style ) => dweet( ( t, x ) => { // FROM: https://www.dwitter.net/d/888
@@ -156,4 +125,11 @@ function setCoords() {
     //        https://fr.wikipedia.org/wiki/Syst%C3%A8me_de_r%C3%A9f%C3%A9rence_c%C3%A9leste_international
     coordsElem.text(`ICRS 18 52 59.${ Math.floor( ( time % 1_000_000 ) / 1000 ) } -26 10 12.70`);
 }
-setInterval(setCoords, 5_000);
+setInterval(setCoords, 1_000); // la station semble se déplacer plus / plus vite
+
+function setOxygen() {
+    const oxygenElem = $("#oxygen");
+    const time = (new Date()).getTime();
+    oxygenElem.text(800 - Math.floor( ( time % 10_000_000 ) / 10_000 ));
+}
+setInterval(setOxygen, 5_00);
